@@ -49,11 +49,10 @@ For using redis-migrator, we have to create a configuration file and provide som
 ```yaml
 ---
 old_redis:
-  host: 172.17.0.3 # IP redis server
-  port: "6379" # Port redis server
-  password: "" # Password of redis server, leave empty if there is no password
-
-migration_databases: [0] # Databases list which needs to be migrated
+  host: 172.17.0.3  # IP redis server
+  port: "6379"      # Port redis server
+  password: ""      # Password of redis server, leave empty if there is no password
+  database: [0]     # Number of database redis server    
 
 concurrent_workers: 4
 
@@ -61,6 +60,7 @@ new_redis:
   host: 172.17.0.4
   port: "6379"
   password: ""
+  database: [0]
 ```
 
 ### Available Options
