@@ -1,21 +1,24 @@
 package migrator
 
 import (
-	"github.com/gomodule/redigo/redis"
-	"github.com/sirupsen/logrus"
+	"fmt"
 	"redis-migrator/client"
 	"redis-migrator/config"
+
+	"github.com/gomodule/redigo/redis"
+	"github.com/sirupsen/logrus"
 )
 
 // MigrateRedisData is the function to migrate keys from old to new redis
 func MigrateRedisData(redConfig config.Configuration) {
-	for _, database := range redConfig.Databases {
+	for _, database := range redConfig.OldRedis.Database {
+		fmt.Print(database)
 		logrus.Debugf("Executing migrator for database: %v", database)
 		oldRedisClient, err := client.OldRedisClient(redConfig, database)
 		if err != nil {
 			logrus.Errorf("Error while connecting with redis %v", err)
 		}
-		newRedisClient, err := client.NewRedisClient(redConfig, database)
+		newRedisClient, err := client.NewRedisClient(redConfig, redConfig.NewRedis.Database[0])
 		if err != nil {
 			logrus.Errorf("Error while connecting with redis %v", err)
 		}
