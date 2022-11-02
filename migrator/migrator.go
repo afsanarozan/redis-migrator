@@ -1,7 +1,6 @@
 package migrator
 
 import (
-	"fmt"
 	"redis-migrator/client"
 	"redis-migrator/config"
 
@@ -12,7 +11,6 @@ import (
 // MigrateRedisData is the function to migrate keys from old to new redis
 func MigrateRedisData(redConfig config.Configuration) {
 	for _, database := range redConfig.OldRedis.Database {
-		fmt.Print(database)
 		logrus.Debugf("Executing migrator for database: %v", database)
 		oldRedisClient, err := client.OldRedisClient(redConfig, database)
 		if err != nil {
